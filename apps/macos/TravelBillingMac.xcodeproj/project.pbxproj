@@ -1,0 +1,162 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {};
+	objectVersion = 56;
+	objects = {
+		AA0001 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
+		AA0002 /* SampleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleData.swift; sourceTree = "<group>"; };
+		AA0003 /* TripsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripsListView.swift; sourceTree = "<group>"; };
+		AA0004 /* TripDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripDetailView.swift; sourceTree = "<group>"; };
+		AA0005 /* AnalyticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsView.swift; sourceTree = "<group>"; };
+		AA0006 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AA0007 /* AddBillView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBillView.swift; sourceTree = "<group>"; };
+		AA0008 /* NewTripView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTripView.swift; sourceTree = "<group>"; };
+		AA0009 /* EditTripView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTripView.swift; sourceTree = "<group>"; };
+		AA0013 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
+		AA0014 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		AA0010 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		AA0011 /* Classification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Classification.swift; sourceTree = "<group>"; };
+		AA0012 /* Statistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Statistics.swift; sourceTree = "<group>"; };
+		PRD001 /* TravelBillingMac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; path = TravelBillingMac.app; sourceTree = BUILT_PRODUCTS_DIR; };
+
+		SRC001 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0001 /* App.swift */; };
+		SRC002 /* SampleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0002 /* SampleData.swift */; };
+		SRC003 /* TripsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0003 /* TripsListView.swift */; };
+		SRC004 /* TripDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0004 /* TripDetailView.swift */; };
+		SRC005 /* AnalyticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0005 /* AnalyticsView.swift */; };
+		SRC009 /* AddBillView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0007 /* AddBillView.swift */; };
+		SRC010 /* NewTripView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0008 /* NewTripView.swift */; };
+		SRC011 /* EditTripView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0009 /* EditTripView.swift */; };
+		SRC012 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0013 /* Persistence.swift */; };
+		SRC013 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0014 /* SettingsView.swift */; };
+		SRC006 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0010 /* Models.swift */; };
+		SRC007 /* Classification.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0011 /* Classification.swift */; };
+		SRC008 /* Statistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0012 /* Statistics.swift */; };
+
+		FRAMEWORKS /* Frameworks */ = {isa = PBXFrameworksBuildPhase; buildActionMask = 2147483647; files = ( ); runOnlyForDeploymentPostprocessing = 0; };
+
+		GRP_ROOT /* TravelBillingMac */ = {
+			isa = PBXGroup;
+			children = (
+				AA0001 /* App.swift */,
+				AA0002 /* SampleData.swift */,
+				AA0003 /* TripsListView.swift */,
+				AA0004 /* TripDetailView.swift */,
+				AA0005 /* AnalyticsView.swift */,
+				AA0007 /* AddBillView.swift */,
+				AA0008 /* NewTripView.swift */,
+				AA0009 /* EditTripView.swift */,
+				AA0013 /* Persistence.swift */,
+				AA0014 /* SettingsView.swift */,
+				GRP_CORE /* Core */,
+				AA0006 /* Info.plist */,
+				GRP_PRODUCTS /* Products */,
+			);
+			name = TravelBillingMac;
+			path = TravelBillingMac;
+			sourceTree = "<group>";
+		};
+		GRP_CORE /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				AA0010 /* Models.swift */,
+				AA0011 /* Classification.swift */,
+				AA0012 /* Statistics.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		GRP_PRODUCTS /* Products */ = {
+			isa = PBXGroup;
+			children = (PRD001 /* TravelBillingMac.app */,);
+			name = Products;
+			sourceTree = "<group>";
+		};
+
+		TGT001 /* TravelBillingMac */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CFG_TGT /* Build configuration list for PBXNativeTarget "TravelBillingMac" */;
+			buildPhases = (PHASE_SOURCES, FRAMEWORKS, PHASE_RESOURCES,);
+			buildRules = ( );
+			dependencies = ( );
+			name = TravelBillingMac;
+			productName = TravelBillingMac;
+			productReference = PRD001 /* TravelBillingMac.app */;
+			productType = "com.apple.product-type.application";
+		};
+
+		PRJ /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
+				ORGANIZATIONNAME = Demo;
+			};
+			buildConfigurationList = CFG_PRJ /* Build configuration list for PBXProject "TravelBillingMac" */;
+			compatibilityVersion = "Xcode 15.0";
+			developmentRegion = en;
+			mainGroup = GRP_ROOT /* TravelBillingMac */;
+			productRefGroup = GRP_PRODUCTS /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (TGT001 /* TravelBillingMac */,);
+		};
+
+		PHASE_RESOURCES /* Resources */ = {isa = PBXResourcesBuildPhase; buildActionMask = 2147483647; files = ( ); runOnlyForDeploymentPostprocessing = 0; };
+		PHASE_SOURCES /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (SRC001, SRC002, SRC003, SRC004, SRC005, SRC009, SRC010, SRC011, SRC012, SRC013, SRC006, SRC007, SRC008,);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+
+		CFG_TGT_DEBUG /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = "$(SRCROOT)/TravelBillingMac/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.demo.travelbilling.mac;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+			};
+			name = Debug;
+		};
+		CFG_TGT_RELEASE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = "$(SRCROOT)/TravelBillingMac/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.demo.travelbilling.mac;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+			};
+			name = Release;
+		};
+		CFG_PRJ_DEBUG /* Debug */ = {isa = XCBuildConfiguration; buildSettings = { }; name = Debug; };
+		CFG_PRJ_RELEASE /* Release */ = {isa = XCBuildConfiguration; buildSettings = { }; name = Release; };
+		CFG_TGT /* Build configuration list for PBXNativeTarget "TravelBillingMac" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (CFG_TGT_DEBUG, CFG_TGT_RELEASE,);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CFG_PRJ /* Build configuration list for PBXProject "TravelBillingMac" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (CFG_PRJ_DEBUG, CFG_PRJ_RELEASE,);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+	};
+	rootObject = PRJ /* Project object */;
+}

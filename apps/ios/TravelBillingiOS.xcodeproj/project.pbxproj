@@ -1,0 +1,270 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 60;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		RES001 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BB0020 /* Assets.xcassets */; };
+		SRC001 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0001 /* App.swift */; };
+		SRC002 /* SampleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0002 /* SampleData.swift */; };
+		SRC003 /* TripsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0003 /* TripsListView.swift */; };
+		SRC004 /* TripDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0004 /* TripDetailView.swift */; };
+		SRC005 /* AnalyticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0005 /* AnalyticsView.swift */; };
+		SRC006 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0010 /* Models.swift */; };
+		SRC007 /* Classification.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0011 /* Classification.swift */; };
+		SRC008 /* Statistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0012 /* Statistics.swift */; };
+		SRC009 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0007 /* Theme.swift */; };
+		SRC010 /* AddBillView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0008 /* AddBillView.swift */; };
+		SRC011 /* VoiceImportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0009 /* VoiceImportView.swift */; };
+		SRC012 /* ImageImportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0013 /* ImageImportView.swift */; };
+		SRC013 /* NewTripView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0014 /* NewTripView.swift */; };
+		SRC014 /* EditTripView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0015 /* EditTripView.swift */; };
+		SRC015 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0016 /* Persistence.swift */; };
+		SRC016 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0017 /* SettingsView.swift */; };
+		SRC017 /* CameraPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0018 /* CameraPicker.swift */; };
+		SRC018 /* ExportService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0019 /* ExportService.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		BB0001 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
+		BB0002 /* SampleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleData.swift; sourceTree = "<group>"; };
+		BB0003 /* TripsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripsListView.swift; sourceTree = "<group>"; };
+		BB0004 /* TripDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripDetailView.swift; sourceTree = "<group>"; };
+		BB0005 /* AnalyticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsView.swift; sourceTree = "<group>"; };
+		BB0006 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BB0007 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		BB0008 /* AddBillView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBillView.swift; sourceTree = "<group>"; };
+		BB0009 /* VoiceImportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceImportView.swift; sourceTree = "<group>"; };
+		BB0010 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		BB0011 /* Classification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Classification.swift; sourceTree = "<group>"; };
+		BB0012 /* Statistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Statistics.swift; sourceTree = "<group>"; };
+		BB0013 /* ImageImportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageImportView.swift; sourceTree = "<group>"; };
+		BB0014 /* NewTripView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTripView.swift; sourceTree = "<group>"; };
+		BB0015 /* EditTripView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTripView.swift; sourceTree = "<group>"; };
+		BB0016 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
+		BB0017 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		BB0018 /* CameraPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPicker.swift; sourceTree = "<group>"; };
+		BB0019 /* ExportService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportService.swift; sourceTree = "<group>"; };
+		BB0020 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		PRD001 /* TravelBillingiOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; path = TravelBillingiOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		FRAMEWORKS /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		GRP_CORE /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				BB0010 /* Models.swift */,
+				BB0011 /* Classification.swift */,
+				BB0012 /* Statistics.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		GRP_PRODUCTS /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				PRD001 /* TravelBillingiOS.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		GRP_ROOT /* TravelBillingiOS */ = {
+			isa = PBXGroup;
+			children = (
+				BB0001 /* App.swift */,
+				BB0002 /* SampleData.swift */,
+				BB0003 /* TripsListView.swift */,
+				BB0004 /* TripDetailView.swift */,
+				BB0005 /* AnalyticsView.swift */,
+				BB0007 /* Theme.swift */,
+				BB0008 /* AddBillView.swift */,
+				BB0009 /* VoiceImportView.swift */,
+				BB0013 /* ImageImportView.swift */,
+				BB0014 /* NewTripView.swift */,
+				BB0015 /* EditTripView.swift */,
+				BB0016 /* Persistence.swift */,
+				BB0017 /* SettingsView.swift */,
+				BB0018 /* CameraPicker.swift */,
+				BB0019 /* ExportService.swift */,
+				BB0020 /* Assets.xcassets */,
+				GRP_CORE /* Core */,
+				BB0006 /* Info.plist */,
+				GRP_PRODUCTS /* Products */,
+			);
+			path = TravelBillingiOS;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		TGT001 /* TravelBillingiOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CFG_TGT /* Build configuration list for PBXNativeTarget "TravelBillingiOS" */;
+			buildPhases = (
+				PHASE_SOURCES /* Sources */,
+				FRAMEWORKS /* Frameworks */,
+				PHASE_RESOURCES /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TravelBillingiOS;
+			productName = TravelBillingiOS;
+			productReference = PRD001 /* TravelBillingiOS.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		PRJ /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
+				ORGANIZATIONNAME = Demo;
+			};
+			buildConfigurationList = CFG_PRJ /* Build configuration list for PBXProject "TravelBillingiOS" */;
+			compatibilityVersion = "Xcode 15.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = GRP_ROOT /* TravelBillingiOS */;
+			productRefGroup = GRP_PRODUCTS /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				TGT001 /* TravelBillingiOS */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		PHASE_RESOURCES /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				RES001 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		PHASE_SOURCES /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				SRC001 /* App.swift in Sources */,
+				SRC009 /* Theme.swift in Sources */,
+				SRC002 /* SampleData.swift in Sources */,
+				SRC003 /* TripsListView.swift in Sources */,
+				SRC004 /* TripDetailView.swift in Sources */,
+				SRC010 /* AddBillView.swift in Sources */,
+				SRC011 /* VoiceImportView.swift in Sources */,
+				SRC012 /* ImageImportView.swift in Sources */,
+				SRC013 /* NewTripView.swift in Sources */,
+				SRC014 /* EditTripView.swift in Sources */,
+				SRC015 /* Persistence.swift in Sources */,
+				SRC016 /* SettingsView.swift in Sources */,
+				SRC017 /* CameraPicker.swift in Sources */,
+				SRC018 /* ExportService.swift in Sources */,
+				SRC005 /* AnalyticsView.swift in Sources */,
+				SRC006 /* Models.swift in Sources */,
+				SRC007 /* Classification.swift in Sources */,
+				SRC008 /* Statistics.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		CFG_PRJ_DEBUG /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		CFG_PRJ_RELEASE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Release;
+		};
+		CFG_TGT_DEBUG /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = NK3U2C365Z;
+				INFOPLIST_FILE = "$(SRCROOT)/TravelBillingiOS/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.chaidaichen.travelbilling.ios;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		CFG_TGT_RELEASE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = NK3U2C365Z;
+				INFOPLIST_FILE = "$(SRCROOT)/TravelBillingiOS/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.chaidaichen.travelbilling.ios;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		CFG_PRJ /* Build configuration list for PBXProject "TravelBillingiOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CFG_PRJ_DEBUG /* Debug */,
+				CFG_PRJ_RELEASE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CFG_TGT /* Build configuration list for PBXNativeTarget "TravelBillingiOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CFG_TGT_DEBUG /* Debug */,
+				CFG_TGT_RELEASE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = PRJ /* Project object */;
+}

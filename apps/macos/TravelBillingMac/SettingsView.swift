@@ -19,7 +19,19 @@ final class SettingsStore: ObservableObject {
     }
     init() {
         defaultCurrency = UserDefaults.standard.string(forKey: "defaultCurrency") ?? "CNY"
-        let defaults: [String: Double] = ["CNY": 1.0, "USD": 7.2, "EUR": 7.8, "JPY": 0.05, "HKD": 0.9, "THB": 0.2, "KRW": 0.005]
+        let defaults: [String: Double] = [
+            "CNY": 1.0, 
+            "USD": 7.2, 
+            "EUR": 7.8, 
+            "JPY": 0.05, 
+            "HKD": 0.9, 
+            "THB": 0.2, 
+            "KRW": 0.0053,
+            "TWD": 0.23,
+            "GBP": 9.2,
+            "CHF": 8.1,
+            "AUD": 4.7
+        ]
         rates = UserDefaults.standard.dictionary(forKey: "exchangeRates") as? [String: Double] ?? defaults
     }
     
@@ -68,7 +80,15 @@ struct SettingsView: View {
                     HStack {
                         Button("从网络更新最新汇率") { store.refreshRates() }
                         Spacer()
-                        Button("新增币种") { store.rates["HKD"] = 0.9 }
+                        Menu("新增币种") {
+                            Button("韩元 (KRW)") { store.rates["KRW"] = 0.0053 }
+                            Button("港币 (HKD)") { store.rates["HKD"] = 0.92 }
+                            Button("台币 (TWD)") { store.rates["TWD"] = 0.23 }
+                            Button("英镑 (GBP)") { store.rates["GBP"] = 9.2 }
+                            Button("瑞士法郎 (CHF)") { store.rates["CHF"] = 8.1 }
+                            Button("澳元 (AUD)") { store.rates["AUD"] = 4.7 }
+                            Button("自定义") { store.rates["NEW"] = 1.0 }
+                        }
                     }
                 }
                 Section("默认币种") {

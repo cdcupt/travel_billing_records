@@ -1,4 +1,5 @@
 import SwiftUI
+import UIKit
 
 struct AddBillView: View {
     let tripId: UUID
@@ -8,6 +9,7 @@ struct AddBillView: View {
     let initialAmount: Decimal?
     let initialDate: Date?
     let initialNote: String?
+    let initialImage: UIImage?
     
     var onSave: (Bill) -> Void
     
@@ -16,13 +18,15 @@ struct AddBillView: View {
     @State private var note: String = ""
     @State private var date: Date = Date()
     @State private var category: BillCategory = .food
+    @State private var invoiceImage: UIImage?
     
-    init(tripId: UUID, currency: String, initialAmount: Decimal? = nil, initialDate: Date? = nil, initialNote: String? = nil, onSave: @escaping (Bill) -> Void) {
+    init(tripId: UUID, currency: String, initialAmount: Decimal? = nil, initialDate: Date? = nil, initialNote: String? = nil, initialImage: UIImage? = nil, onSave: @escaping (Bill) -> Void) {
         self.tripId = tripId
         self.currency = currency
         self.initialAmount = initialAmount
         self.initialDate = initialDate
         self.initialNote = initialNote
+        self.initialImage = initialImage
         self.onSave = onSave
     }
     
@@ -49,6 +53,17 @@ struct AddBillView: View {
                 
                 ScrollView {
                     VStack(spacing: 20) {
+                        // Invoice Image
+                        if let image = invoiceImage {
+                            Image(uiImage: image)
+                                .resizable()
+                                .scaledToFit()
+                                .frame(height: 200)
+                                .cornerRadius(Theme.cornerRadius)
+                                .shadow(color: Theme.shadowColor, radius: Theme.shadowRadius, x: 0, y: Theme.shadowY)
+                                .padding(.horizontal)
+                        }
+                        
                         // Amount Input
                         VStack(alignment: .leading, spacing: 8) {
                             Text("金额 (\(currency))")
@@ -124,6 +139,25 @@ struct AddBillView: View {
                 // Save Button
                 Button {
                     guard let amount = Decimal(string: amountText) else { return }
+                    
+                    var imagePath: String?
+                    if let image = invoiceImage {
+                        if let data = image.jpegData(compressionQuality: 0.7) {
+                            let filename = UUID().uuidString + ".jpg"
+                            // Use standard documents directory URL without resolving symlinks or extra options to avoid FileProvider issues
+                            let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
+                            let url = URL(fileURLWithPath: documentsPath).appendingPathComponent(filename)
+                            
+                            do {
+                                try data.write(to: url)
+                                imagePath = filename
+                                print("Image saved successfully at: \(url.path)")
+                            } catch {
+                                print("Failed to save image: \(error)")
+                            }
+                        }
+                    }
+                    
                     let bill = Bill(
                         tripId: tripId,
                         date: date,
@@ -131,7 +165,8 @@ struct AddBillView: View {
                         currency: currency,
                         category: category,
                         participants: [],
-                        note: note
+                        note: note,
+                        imagePath: imagePath
                     )
                     onSave(bill)
                     dismiss()
@@ -160,6 +195,9 @@ struct AddBillView: View {
             }
             if let initialNote = initialNote {
                 note = initialNote
+            }
+            if let initialImage = initialImage {
+                invoiceImage = initialImage
             }
         }
     }

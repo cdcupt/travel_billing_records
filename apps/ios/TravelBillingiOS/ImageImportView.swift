@@ -4,7 +4,7 @@ import Vision
 import UIKit
 
 struct ImageImportView: View {
-    var onText: (String) -> Void
+    var onImageSelected: (UIImage, String?) -> Void
     @Environment(\.dismiss) private var dismiss
     @State private var selectedItems: [PhotosPickerItem] = []
     @State private var isRecognizing = false
@@ -19,7 +19,7 @@ struct ImageImportView: View {
                 ProgressView("正在识别账单金额...")
                     .scaleEffect(1.2)
             } else {
-                Text("选择识别方式")
+                Text("添加发票")
                     .font(.headline)
                 
                 Button {
@@ -56,8 +56,11 @@ struct ImageImportView: View {
         .padding(30)
         .onAppear {
             if !hasAutoLaunchedCamera {
-                showCamera = true
-                hasAutoLaunchedCamera = true
+                // Add a small delay to ensure the view is fully loaded and permissions are handled correctly
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    showCamera = true
+                    hasAutoLaunchedCamera = true
+                }
             }
         }
         .sheet(isPresented: $showCamera) {
@@ -106,13 +109,15 @@ struct ImageImportView: View {
                 DispatchQueue.main.async {
                     self.isRecognizing = false
                     // Automatically return result and close
-                    self.onText(fullText)
+                    self.onImageSelected(uiImage, fullText)
                     self.dismiss()
                 }
             } catch {
                 DispatchQueue.main.async {
                     self.isRecognizing = false
-                    self.errorText = "识别失败，请重试"
+                    // Return image even if recognition fails
+                    self.onImageSelected(uiImage, nil)
+                    self.dismiss()
                 }
             }
         }

@@ -26,6 +26,7 @@
 		SRC016 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0017 /* SettingsView.swift */; };
 		SRC017 /* CameraPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0018 /* CameraPicker.swift */; };
 		SRC018 /* ExportService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0019 /* ExportService.swift */; };
+		SRC019 /* BillDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0021 /* BillDetailView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,6 +50,7 @@
 		BB0018 /* CameraPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPicker.swift; sourceTree = "<group>"; };
 		BB0019 /* ExportService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportService.swift; sourceTree = "<group>"; };
 		BB0020 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		BB0021 /* BillDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillDetailView.swift; sourceTree = "<group>"; };
 		PRD001 /* TravelBillingiOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; path = TravelBillingiOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -88,6 +90,7 @@
 				BB0002 /* SampleData.swift */,
 				BB0003 /* TripsListView.swift */,
 				BB0004 /* TripDetailView.swift */,
+				BB0021 /* BillDetailView.swift */,
 				BB0005 /* AnalyticsView.swift */,
 				BB0007 /* Theme.swift */,
 				BB0008 /* AddBillView.swift */,
@@ -185,6 +188,7 @@
 				SRC016 /* SettingsView.swift in Sources */,
 				SRC017 /* CameraPicker.swift in Sources */,
 				SRC018 /* ExportService.swift in Sources */,
+				SRC019 /* BillDetailView.swift in Sources */,
 				SRC005 /* AnalyticsView.swift in Sources */,
 				SRC006 /* Models.swift in Sources */,
 				SRC007 /* Classification.swift in Sources */,

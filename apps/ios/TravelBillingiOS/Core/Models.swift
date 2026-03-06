@@ -52,6 +52,7 @@ public struct Bill: Codable, Identifiable, Hashable {
     public var note: String?
     public var sourceType: BillSourceType
     public var rawSourceURL: URL?
+    public var imagePath: String?
     public var tags: [String]
     
     public init(
@@ -66,6 +67,7 @@ public struct Bill: Codable, Identifiable, Hashable {
         note: String? = nil,
         sourceType: BillSourceType = .text,
         rawSourceURL: URL? = nil,
+        imagePath: String? = nil,
         tags: [String] = []
     ) {
         self.id = id
@@ -79,6 +81,7 @@ public struct Bill: Codable, Identifiable, Hashable {
         self.note = note
         self.sourceType = sourceType
         self.rawSourceURL = rawSourceURL
+        self.imagePath = imagePath
         self.tags = tags
     }
 }

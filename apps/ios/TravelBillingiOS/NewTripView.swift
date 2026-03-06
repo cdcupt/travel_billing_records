@@ -3,6 +3,7 @@ import SwiftUI
 struct NewTripView: View {
     var onSave: (Trip) -> Void
     @Environment(\.dismiss) private var dismiss
+    @StateObject private var settings = SettingsStore()
     @State private var name: String = ""
     @State private var startDate: Date = Date()
     @State private var endDate: Date = Date()
@@ -17,14 +18,12 @@ struct NewTripView: View {
                     DatePicker("开始日期", selection: $startDate, displayedComponents: .date)
                     DatePicker("结束日期", selection: $endDate, displayedComponents: .date)
                     Picker("币种", selection: $currency) {
-                        let codes = ((UserDefaults.standard.dictionary(forKey: "exchangeRates") as? [String: Double])?.keys.map { String($0) } ?? ["CNY","USD","EUR","JPY","HKD"]).sorted()
-                        ForEach(codes, id: \.self) { code in
+                        ForEach(settings.rates.keys.sorted(), id: \.self) { code in
                             Text(code).tag(code)
                         }
                     }
                     .onChange(of: currency) { newCurrency in
-                        let rates = UserDefaults.standard.dictionary(forKey: "exchangeRates") as? [String: Double]
-                        if let r = rates?[newCurrency] {
+                        if let r = settings.rates[newCurrency] {
                             exchangeRate = r
                         } else {
                             exchangeRate = 1.0
@@ -41,6 +40,14 @@ struct NewTripView: View {
                 }
             }
             .navigationTitle("新建旅行")
+            .onAppear {
+                if currency == "CNY" && name.isEmpty { // Only set default if it's a fresh start
+                    currency = settings.defaultCurrency
+                    if let r = settings.rates[currency] {
+                        exchangeRate = r
+                    }
+                }
+            }
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
                     Button("保存") {

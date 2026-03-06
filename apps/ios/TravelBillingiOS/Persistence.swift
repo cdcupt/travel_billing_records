@@ -7,7 +7,23 @@ final class Persistence {
     private init() {
         let model = Self.makeModel()
         container = NSPersistentContainer(name: "TravelBilling", managedObjectModel: model)
-        container.loadPersistentStores { _, _ in }
+        
+        let description = NSPersistentStoreDescription()
+        description.shouldMigrateStoreAutomatically = true
+        description.shouldInferMappingModelAutomatically = true
+        // Set the URL explicitly to ensure we are using the default location
+        if let url = container.persistentStoreDescriptions.first?.url {
+            description.url = url
+        }
+        container.persistentStoreDescriptions = [description]
+        
+        container.loadPersistentStores { desc, error in
+            if let error = error {
+                print("Core Data failed to load: \(error)")
+            } else {
+                print("Core Data loaded: \(desc)")
+            }
+        }
     }
     
     static func makeModel() -> NSManagedObjectModel {
@@ -78,6 +94,10 @@ final class Persistence {
         let b_sourceType = NSAttributeDescription()
         b_sourceType.name = "sourceType"
         b_sourceType.attributeType = .stringAttributeType
+        let b_imagePath = NSAttributeDescription()
+        b_imagePath.name = "imagePath"
+        b_imagePath.attributeType = .stringAttributeType
+        b_imagePath.isOptional = true
         
         let r_trip = NSRelationshipDescription()
         r_trip.name = "trip"
@@ -97,7 +117,7 @@ final class Persistence {
         r_bills.inverseRelationship = r_trip
         
         trip.properties.append(r_bills)
-        bill.properties = [b_id, b_date, b_amount, b_currency, b_category, b_payer, b_note, b_participants, b_tags, b_sourceType, r_trip]
+        bill.properties = [b_id, b_date, b_amount, b_currency, b_category, b_payer, b_note, b_participants, b_tags, b_sourceType, b_imagePath, r_trip]
         
         model.entities = [trip, bill]
         return model
@@ -127,6 +147,11 @@ final class Persistence {
                     let note = b.value(forKey: "note") as? String
                     let sourceTypeRaw = b.value(forKey: "sourceType") as? String ?? BillSourceType.text.rawValue
                     let sourceType = BillSourceType(rawValue: sourceTypeRaw) ?? .text
+                    
+                    // Force refresh object to get latest property values
+                    ctx.refresh(b, mergeChanges: true)
+                    let imagePath = b.value(forKey: "imagePath") as? String
+                    
                     var participants: [ParticipantShare] = []
                     if let pdata = b.value(forKey: "participants") as? Data,
                        let arr = try? JSONDecoder().decode([ParticipantShare].self, from: pdata) {
@@ -137,31 +162,60 @@ final class Persistence {
                        let arr = try? JSONDecoder().decode([String].self, from: tdata) {
                         tags = arr
                     }
-                    let bill = Bill(id: bid, tripId: id, date: date, amount: amount, currency: bc, category: cat, payer: payer, participants: participants, note: note, sourceType: sourceType, rawSourceURL: nil, tags: tags)
+                    let bill = Bill(id: bid, tripId: id, date: date, amount: amount, currency: bc, category: cat, payer: payer, participants: participants, note: note, sourceType: sourceType, rawSourceURL: nil, imagePath: imagePath, tags: tags)
                     trip.addBill(bill)
                 }
             }
+            // Sort bills by date descending by default
+            trip.bills.sort { $0.date > $1.date }
             return trip
         }
     }
     
     func saveTrips(_ trips: [Trip]) {
         let ctx = container.viewContext
+        // Optimistic locking: Merge changes instead of full wipe
+        // But for simplicity in this demo app, we'll use a smarter update approach
+        
         let req = NSFetchRequest<NSManagedObject>(entityName: "TripEntity")
         let existing = (try? ctx.fetch(req)) ?? []
-        for mo in existing { ctx.delete(mo) }
+        
+        // Map existing trips by ID for updates
+        var existingTripsMap = Dictionary(uniqueKeysWithValues: existing.map { ($0.value(forKey: "id") as? UUID ?? UUID(), $0) })
+        
         for trip in trips {
-            let tmo = NSEntityDescription.insertNewObject(forEntityName: "TripEntity", into: ctx)
-            tmo.setValue(trip.id, forKey: "id")
+            let tmo: NSManagedObject
+            if let existing = existingTripsMap[trip.id] {
+                tmo = existing
+                existingTripsMap.removeValue(forKey: trip.id)
+            } else {
+                tmo = NSEntityDescription.insertNewObject(forEntityName: "TripEntity", into: ctx)
+                tmo.setValue(trip.id, forKey: "id")
+            }
+            
             tmo.setValue(trip.name, forKey: "name")
             tmo.setValue(trip.startDate, forKey: "startDate")
             tmo.setValue(trip.endDate, forKey: "endDate")
             tmo.setValue(trip.currency, forKey: "currency")
             tmo.setValue(trip.exchangeRate, forKey: "exchangeRate")
+            
+            // Handle bills
+            let billsReq = NSFetchRequest<NSManagedObject>(entityName: "BillEntity")
+            billsReq.predicate = NSPredicate(format: "trip == %@", tmo)
+            let existingBills = (try? ctx.fetch(billsReq)) ?? []
+            var existingBillsMap = Dictionary(uniqueKeysWithValues: existingBills.map { ($0.value(forKey: "id") as? UUID ?? UUID(), $0) })
+            
             var billsSet: Set<NSManagedObject> = []
             for bill in trip.bills {
-                let bmo = NSEntityDescription.insertNewObject(forEntityName: "BillEntity", into: ctx)
-                bmo.setValue(bill.id, forKey: "id")
+                let bmo: NSManagedObject
+                if let existing = existingBillsMap[bill.id] {
+                    bmo = existing
+                    existingBillsMap.removeValue(forKey: bill.id)
+                } else {
+                    bmo = NSEntityDescription.insertNewObject(forEntityName: "BillEntity", into: ctx)
+                    bmo.setValue(bill.id, forKey: "id")
+                }
+                
                 bmo.setValue(bill.date, forKey: "date")
                 bmo.setValue(NSDecimalNumber(decimal: bill.amount).doubleValue, forKey: "amount")
                 bmo.setValue(bill.currency ?? "CNY", forKey: "currency")
@@ -169,6 +223,8 @@ final class Persistence {
                 bmo.setValue(bill.payer, forKey: "payer")
                 bmo.setValue(bill.note, forKey: "note")
                 bmo.setValue(bill.sourceType.rawValue, forKey: "sourceType")
+                bmo.setValue(bill.imagePath, forKey: "imagePath")
+                
                 if let pdata = try? JSONEncoder().encode(bill.participants) {
                     bmo.setValue(pdata, forKey: "participants")
                 }
@@ -178,8 +234,25 @@ final class Persistence {
                 bmo.setValue(tmo, forKey: "trip")
                 billsSet.insert(bmo)
             }
+            
+            // Delete removed bills
+            for bmo in existingBillsMap.values {
+                ctx.delete(bmo)
+            }
+            
             tmo.setValue(billsSet, forKey: "bills")
         }
-        try? ctx.save()
+        
+        // Delete removed trips
+        for tmo in existingTripsMap.values {
+            ctx.delete(tmo)
+        }
+        
+        do {
+            try ctx.save()
+            print("Successfully saved trips to Core Data")
+        } catch {
+            print("Failed to save trips: \(error)")
+        }
     }
 }

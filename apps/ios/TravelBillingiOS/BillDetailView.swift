@@ -1,4 +1,3 @@
-
 import SwiftUI
 import UIKit
 
@@ -7,253 +6,191 @@ struct BillDetailView: View {
     var onDelete: (() -> Void)? = nil
     @Environment(\.dismiss) private var dismiss
     @State private var showDeleteConfirmation = false
-    @State private var isShowingFullImage = false
-    
+    @State private var isShowingFullImage     = false
+
     var body: some View {
         NavigationStack {
-            ScrollView {
-                VStack(spacing: 24) {
-                    // Image Section
-                    if let imagePath = bill.imagePath {
-                        let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
-                        let fullURL = URL(fileURLWithPath: documentsPath).appendingPathComponent(imagePath)
-                        
-                        if let image = UIImage(contentsOfFile: fullURL.path) {
-                            VStack(alignment: .leading, spacing: 8) {
+            ZStack {
+                Theme.backgroundGradient.ignoresSafeArea()
+
+                ScrollView {
+                    VStack(spacing: 20) {
+                        // Receipt image
+                        if let imagePath = bill.imagePath {
+                            let dir = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
+                            let url = URL(fileURLWithPath: dir).appendingPathComponent(imagePath)
+                            if let image = UIImage(contentsOfFile: url.path) {
                                 Image(uiImage: image)
                                     .resizable()
                                     .scaledToFit()
-                                    .frame(maxHeight: 400)
-                                    .cornerRadius(12)
-                                    .shadow(radius: 5)
-                                    .onTapGesture {
-                                        isShowingFullImage = true
-                                    }
-                                
-                                Text("点按图片查看大图，支持缩放")
+                                    .frame(maxHeight: 300)
+                                    .clipShape(RoundedRectangle(cornerRadius: Theme.cornerRadius))
+                                    .onTapGesture { isShowingFullImage = true }
+                                    .padding(.horizontal)
+
+                                Text("点按查看大图")
                                     .font(.caption)
-                                    .foregroundColor(.secondary)
-                            }
-                        } else {
-                            // Debug view for failed image load
-                            VStack {
-                                Rectangle()
-                                    .fill(Color.gray.opacity(0.1))
-                                    .frame(height: 200)
-                                    .overlay(
-                                        VStack {
-                                            Image(systemName: "exclamationmark.triangle")
-                                                .font(.largeTitle)
-                                                .foregroundColor(.orange)
-                                            Text("无法加载图片")
-                                                .font(.caption)
-                                                .foregroundColor(.gray)
-                                            
-                                            let exists = FileManager.default.fileExists(atPath: fullURL.path)
-                                            Text("文件存在: \(exists ? "是" : "否")")
-                                                .font(.caption2)
-                                                .foregroundColor(exists ? .green : .red)
-                                            
-                                            Text("Path: \(fullURL.path)")
-                                                .font(.caption2)
-                                                .foregroundColor(.gray)
-                                                .multilineTextAlignment(.center)
-                                                .padding(.horizontal)
-                                        }
-                                    )
-                                    .cornerRadius(12)
+                                    .foregroundColor(Theme.textSecondary)
                             }
                         }
-                    } else {
-                        // Debug view for nil imagePath
-                        Rectangle()
-                            .fill(Color.gray.opacity(0.1))
-                            .frame(height: 200)
-                            .overlay(
-                                VStack {
-                                    // Use 'photo' with strikethrough logic or simpler icon if available
-                                    // But safer to just use 'photo' and maybe tint it gray
-                                    Image(systemName: "photo")
-                                        .font(.largeTitle)
-                                        .foregroundColor(.gray)
-                                    Text("无发票图片 (Path is nil)")
-                                        .font(.caption)
-                                        .foregroundColor(.gray)
-                                }
-                            )
-                            .cornerRadius(12)
-                    }
-                    
-                    // Details Section
-                    VStack(spacing: 16) {
-                        DetailRow(label: "金额", value: "\(bill.amount) \(bill.currency ?? "")")
-                        DetailRow(label: "类别", value: bill.category.displayName)
-                        DetailRow(label: "日期", value: bill.date.formatted(date: .long, time: .omitted))
-                        if let note = bill.note, !note.isEmpty {
-                            DetailRow(label: "备注", value: note)
+
+                        // Category hero
+                        VStack(spacing: 12) {
+                            Image(systemName: bill.category.icon)
+                                .font(.system(size: 36, weight: .semibold))
+                                .foregroundColor(bill.category.color)
+                                .frame(width: 72, height: 72)
+                                .glassEffect(.regular.tint(bill.category.color), in: .circle)
+
+                            Text(bill.category.displayName)
+                                .font(Theme.headlineFont())
+                                .foregroundColor(Theme.textPrimary)
+
+                            let amount = NSDecimalNumber(decimal: bill.amount).doubleValue
+                            Text("\(amount, specifier: "%.2f") \(bill.currency ?? "")")
+                                .font(.system(size: 38, weight: .bold, design: .rounded))
+                                .foregroundColor(Theme.textPrimary)
                         }
-                    }
-                    .padding()
-                    .background(Theme.cardBackground)
-                    .cornerRadius(12)
-                    .shadow(radius: 2)
-                    
-                    if let onDelete = onDelete {
-                        Button(role: .destructive) {
-                            showDeleteConfirmation = true
-                        } label: {
-                            Text("删除账单")
-                                .frame(maxWidth: .infinity)
-                                .padding()
-                                .background(Color.red.opacity(0.1))
-                                .foregroundColor(.red)
-                                .cornerRadius(12)
-                        }
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 24)
+                        .glassEffect(.regular, in: .rect(cornerRadius: Theme.cornerRadius))
                         .padding(.horizontal)
+
+                        // Details
+                        VStack(spacing: 0) {
+                            detailRow(label: "日期", value: bill.date.formatted(date: .long, time: .omitted))
+                            if let note = bill.note, !note.isEmpty {
+                                Divider().background(Color.white.opacity(0.1)).padding(.horizontal)
+                                detailRow(label: "备注", value: note)
+                            }
+                            if !bill.participants.isEmpty {
+                                Divider().background(Color.white.opacity(0.1)).padding(.horizontal)
+                                detailRow(label: "参与者", value: bill.participants.map { $0.name }.joined(separator: ", "))
+                            }
+                        }
+                        .glassEffect(.regular, in: .rect(cornerRadius: Theme.cornerRadius))
+                        .padding(.horizontal)
+
+                        // Delete button
+                        if onDelete != nil {
+                            Button(role: .destructive) {
+                                showDeleteConfirmation = true
+                            } label: {
+                                HStack {
+                                    Image(systemName: "trash")
+                                    Text("删除账单")
+                                }
+                                .font(Theme.headlineFont())
+                                .foregroundColor(.red)
+                                .frame(maxWidth: .infinity)
+                                .padding(.vertical, 14)
+                            }
+                            .buttonStyle(.plain)
+                            .glassEffect(.regular.tint(.red), in: .rect(cornerRadius: Theme.cornerRadius))
+                            .padding(.horizontal)
+                        }
                     }
+                    .padding(.vertical)
                 }
-                .padding()
             }
             .navigationTitle("账单详情")
-            .alert("确认删除", isPresented: $showDeleteConfirmation) {
-                Button("删除", role: .destructive) {
-                    if let onDelete = onDelete {
-                        onDelete()
-                    }
-                    dismiss()
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbarColorScheme(.dark, for: .navigationBar)
+            .toolbarBackground(.hidden, for: .navigationBar)
+            .toolbar {
+                ToolbarItem(placement: .confirmationAction) {
+                    Button("关闭") { dismiss() }
+                        .foregroundColor(Theme.textSecondary)
                 }
-                Button("取消", role: .cancel) { }
+            }
+            .alert("确认删除", isPresented: $showDeleteConfirmation) {
+                Button("删除", role: .destructive) { onDelete?(); dismiss() }
+                Button("取消", role: .cancel) {}
             } message: {
                 Text("确定要删除这笔账单吗？此操作无法撤销。")
             }
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .confirmationAction) {
-                    Button("关闭") {
-                        dismiss()
-                    }
-                }
-            }
             .fullScreenCover(isPresented: $isShowingFullImage) {
-                // Reload image from disk to avoid依赖额外 state，防止出现瞬间为空导致闪退/自动关闭
                 if let imagePath = bill.imagePath {
-                    let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
-                    let fullURL = URL(fileURLWithPath: documentsPath).appendingPathComponent(imagePath)
-                    
-                    if let image = UIImage(contentsOfFile: fullURL.path) {
-                        ZoomableImageView(image: image) {
-                            isShowingFullImage = false
-                        }
-                    } else {
-                        // 显示简单的错误界面，而不是瞬间关闭
-                        VStack(spacing: 16) {
-                            Color.black.opacity(0.9)
-                                .ignoresSafeArea()
-                                .overlay(
-                                    VStack(spacing: 12) {
-                                        Image(systemName: "exclamationmark.triangle")
-                                            .font(.largeTitle)
-                                            .foregroundColor(.orange)
-                                        Text("无法加载大图")
-                                            .foregroundColor(.white)
-                                        Button("关闭") {
-                                            isShowingFullImage = false
-                                        }
-                                        .padding(.top, 8)
-                                    }
-                                )
-                        }
+                    let dir = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
+                    let url = URL(fileURLWithPath: dir).appendingPathComponent(imagePath)
+                    if let image = UIImage(contentsOfFile: url.path) {
+                        ZoomableImageView(image: image) { isShowingFullImage = false }
                     }
-                } else {
-                    Color.black.opacity(0.9)
-                        .ignoresSafeArea()
-                        .overlay(
-                            VStack(spacing: 12) {
-                                Image(systemName: "photo")
-                                    .font(.largeTitle)
-                                    .foregroundColor(.white)
-                                Text("没有可显示的图片")
-                                    .foregroundColor(.white)
-                                Button("关闭") {
-                                    isShowingFullImage = false
-                                }
-                                .padding(.top, 8)
-                            }
-                        )
                 }
             }
         }
     }
-}
 
-struct DetailRow: View {
-    let label: String
-    let value: String
-    
-    var body: some View {
+    private func detailRow(label: String, value: String) -> some View {
         HStack {
             Text(label)
-                .foregroundColor(.secondary)
+                .font(Theme.subheadlineFont())
+                .foregroundColor(Theme.textSecondary)
             Spacer()
             Text(value)
+                .font(Theme.subheadlineFont())
                 .fontWeight(.medium)
+                .foregroundColor(Theme.textPrimary)
+                .multilineTextAlignment(.trailing)
         }
+        .padding(.horizontal)
+        .padding(.vertical, 14)
     }
 }
 
 struct ZoomableImageView: UIViewRepresentable {
     let image: UIImage
     let onClose: () -> Void
-    
+
     func makeUIView(context: Context) -> UIScrollView {
         let scrollView = UIScrollView()
         scrollView.minimumZoomScale = 1.0
         scrollView.maximumZoomScale = 4.0
         scrollView.backgroundColor = UIColor.black
         scrollView.delegate = context.coordinator
-        
+
         let imageView = UIImageView(image: image)
         imageView.contentMode = .scaleAspectFit
         imageView.isUserInteractionEnabled = true
         imageView.frame = scrollView.bounds
         imageView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        
+
         let doubleTap = UITapGestureRecognizer(target: context.coordinator, action: #selector(Coordinator.handleDoubleTap(_:)))
         doubleTap.numberOfTapsRequired = 2
         imageView.addGestureRecognizer(doubleTap)
-        
+
         let singleTap = UITapGestureRecognizer(target: context.coordinator, action: #selector(Coordinator.handleSingleTap(_:)))
         singleTap.numberOfTapsRequired = 1
         imageView.addGestureRecognizer(singleTap)
-        
+
         singleTap.require(toFail: doubleTap)
-        
+
         scrollView.addSubview(imageView)
         context.coordinator.imageView = imageView
-        
+
         return scrollView
     }
-    
+
     func updateUIView(_ uiView: UIScrollView, context: Context) {
         context.coordinator.onClose = onClose
     }
-    
+
     func makeCoordinator() -> Coordinator {
         Coordinator(onClose: onClose)
     }
-    
+
     class Coordinator: NSObject, UIScrollViewDelegate {
         var imageView: UIImageView?
         var onClose: () -> Void
-        
+
         init(onClose: @escaping () -> Void) {
             self.onClose = onClose
         }
-        
+
         func viewForZooming(in scrollView: UIScrollView) -> UIView? {
             imageView
         }
-        
+
         @objc func handleDoubleTap(_ gesture: UITapGestureRecognizer) {
             guard let scrollView = gesture.view?.superview as? UIScrollView else { return }
             if scrollView.zoomScale > 1.0 {
@@ -264,11 +201,11 @@ struct ZoomableImageView: UIViewRepresentable {
                 scrollView.zoom(to: zoomRect, animated: true)
             }
         }
-        
+
         @objc func handleSingleTap(_ gesture: UITapGestureRecognizer) {
             onClose()
         }
-        
+
         private func zoomRectForScale(scale: CGFloat, center: CGPoint, scrollView: UIScrollView) -> CGRect {
             var zoomRect = CGRect.zero
             if let imageView = imageView {

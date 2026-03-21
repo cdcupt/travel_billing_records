@@ -98,7 +98,11 @@ final class Persistence {
         b_imagePath.name = "imagePath"
         b_imagePath.attributeType = .stringAttributeType
         b_imagePath.isOptional = true
-        
+        let b_lineItems = NSAttributeDescription()
+        b_lineItems.name = "lineItems"
+        b_lineItems.attributeType = .binaryDataAttributeType
+        b_lineItems.isOptional = true
+
         let r_trip = NSRelationshipDescription()
         r_trip.name = "trip"
         r_trip.destinationEntity = trip
@@ -117,7 +121,7 @@ final class Persistence {
         r_bills.inverseRelationship = r_trip
         
         trip.properties.append(r_bills)
-        bill.properties = [b_id, b_date, b_amount, b_currency, b_category, b_payer, b_note, b_participants, b_tags, b_sourceType, b_imagePath, r_trip]
+        bill.properties = [b_id, b_date, b_amount, b_currency, b_category, b_payer, b_note, b_participants, b_tags, b_sourceType, b_imagePath, b_lineItems, r_trip]
         
         model.entities = [trip, bill]
         return model
@@ -162,7 +166,12 @@ final class Persistence {
                        let arr = try? JSONDecoder().decode([String].self, from: tdata) {
                         tags = arr
                     }
-                    let bill = Bill(id: bid, tripId: id, date: date, amount: amount, currency: bc, category: cat, payer: payer, participants: participants, note: note, sourceType: sourceType, rawSourceURL: nil, imagePath: imagePath, tags: tags)
+                    var lineItems: [BillLineItem] = []
+                    if let liData = b.value(forKey: "lineItems") as? Data,
+                       let arr = try? JSONDecoder().decode([BillLineItem].self, from: liData) {
+                        lineItems = arr
+                    }
+                    let bill = Bill(id: bid, tripId: id, date: date, amount: amount, currency: bc, category: cat, payer: payer, participants: participants, note: note, sourceType: sourceType, rawSourceURL: nil, imagePath: imagePath, lineItems: lineItems, tags: tags)
                     trip.addBill(bill)
                 }
             }
@@ -230,6 +239,9 @@ final class Persistence {
                 }
                 if let tdata = try? JSONEncoder().encode(bill.tags) {
                     bmo.setValue(tdata, forKey: "tags")
+                }
+                if let liData = try? JSONEncoder().encode(bill.lineItems) {
+                    bmo.setValue(liData, forKey: "lineItems")
                 }
                 bmo.setValue(tmo, forKey: "trip")
                 billsSet.insert(bmo)

@@ -4,6 +4,7 @@ import Vision
 import UIKit
 
 struct ImageImportView: View {
+    var autoDismiss: Bool = true
     var onImageSelected: (UIImage, String?) -> Void
     @Environment(\.dismiss) private var dismiss
     @State private var selectedItems: [PhotosPickerItem] = []
@@ -40,11 +41,13 @@ struct ImageImportView: View {
                 }
                 .buttonStyle(.bordered)
                 
-                Button("取消") {
-                    dismiss()
+                if autoDismiss {
+                    Button("取消") {
+                        dismiss()
+                    }
+                    .foregroundColor(.secondary)
+                    .padding(.top)
                 }
-                .foregroundColor(.secondary)
-                .padding(.top)
             }
             
             if let errorText {
@@ -108,16 +111,14 @@ struct ImageImportView: View {
                 
                 DispatchQueue.main.async {
                     self.isRecognizing = false
-                    // Automatically return result and close
                     self.onImageSelected(uiImage, fullText)
-                    self.dismiss()
+                    if self.autoDismiss { self.dismiss() }
                 }
             } catch {
                 DispatchQueue.main.async {
                     self.isRecognizing = false
-                    // Return image even if recognition fails
                     self.onImageSelected(uiImage, nil)
-                    self.dismiss()
+                    if self.autoDismiss { self.dismiss() }
                 }
             }
         }

@@ -27,6 +27,18 @@ public struct ParticipantShare: Codable, Hashable {
     }
 }
 
+public struct BillLineItem: Codable, Identifiable, Hashable {
+    public let id: UUID
+    public var description: String
+    public var amount: Decimal
+
+    public init(id: UUID = UUID(), description: String, amount: Decimal) {
+        self.id = id
+        self.description = description
+        self.amount = amount
+    }
+}
+
 public struct Bill: Codable, Identifiable, Hashable {
     public let id: UUID
     public let tripId: UUID
@@ -39,8 +51,9 @@ public struct Bill: Codable, Identifiable, Hashable {
     public var note: String?
     public var sourceType: BillSourceType
     public var rawSourceURL: URL?
+    public var lineItems: [BillLineItem]
     public var tags: [String]
-    
+
     public init(
         id: UUID = UUID(),
         tripId: UUID,
@@ -53,6 +66,7 @@ public struct Bill: Codable, Identifiable, Hashable {
         note: String? = nil,
         sourceType: BillSourceType = .text,
         rawSourceURL: URL? = nil,
+        lineItems: [BillLineItem] = [],
         tags: [String] = []
     ) {
         self.id = id
@@ -66,6 +80,7 @@ public struct Bill: Codable, Identifiable, Hashable {
         self.note = note
         self.sourceType = sourceType
         self.rawSourceURL = rawSourceURL
+        self.lineItems = lineItems
         self.tags = tags
     }
 }

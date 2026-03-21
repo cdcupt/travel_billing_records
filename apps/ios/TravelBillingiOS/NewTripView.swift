@@ -59,7 +59,6 @@ struct NewTripView: View {
                                 Spacer()
                                 DatePicker("", selection: $startDate, displayedComponents: .date)
                                     .labelsHidden()
-                                    .colorScheme(.dark)
                             }
                             .padding(16)
                             .glassEffect(.regular, in: .rect(cornerRadius: 14))
@@ -71,7 +70,6 @@ struct NewTripView: View {
                                 Spacer()
                                 DatePicker("", selection: $endDate, in: startDate..., displayedComponents: .date)
                                     .labelsHidden()
-                                    .colorScheme(.dark)
                             }
                             .padding(16)
                             .glassEffect(.regular, in: .rect(cornerRadius: 14))
@@ -94,7 +92,6 @@ struct NewTripView: View {
                                     ForEach(settings.rates.keys.sorted(), id: \.self) { Text($0).tag($0) }
                                 }
                                 .pickerStyle(.menu)
-                                .colorScheme(.dark)
                                 .onChange(of: currency) { newVal in
                                     exchangeRate = settings.rates[newVal] ?? 1.0
                                 }
@@ -132,7 +129,6 @@ struct NewTripView: View {
                 } label: {
                     Text("创建旅行")
                         .font(Theme.headlineFont())
-                        .foregroundColor(.white)
                         .frame(maxWidth: .infinity)
                         .padding(.vertical, 16)
                 }

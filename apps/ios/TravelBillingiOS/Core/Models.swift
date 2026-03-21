@@ -1,4 +1,5 @@
 import Foundation
+import SwiftUI
 
 public enum BillCategory: String, Codable, CaseIterable, Hashable {
     case transport
@@ -20,6 +21,32 @@ public enum BillCategory: String, Codable, CaseIterable, Hashable {
         case .tickets: return "门票"
         case .tips: return "小费"
         case .misc: return "其他"
+        }
+    }
+
+    public var icon: String {
+        switch self {
+        case .transport:     return "airplane"
+        case .accommodation: return "bed.double.fill"
+        case .food:          return "fork.knife"
+        case .shopping:      return "bag.fill"
+        case .entertainment: return "sparkles"
+        case .tickets:       return "ticket.fill"
+        case .tips:          return "hands.and.sparkles.fill"
+        case .misc:          return "square.grid.2x2.fill"
+        }
+    }
+
+    public var color: Color {
+        switch self {
+        case .transport:     return Color(red: 0.20, green: 0.45, blue: 0.90)
+        case .accommodation: return Color(red: 0.55, green: 0.30, blue: 0.88)
+        case .food:          return Color(red: 0.92, green: 0.42, blue: 0.12)
+        case .shopping:      return Color(red: 0.88, green: 0.22, blue: 0.52)
+        case .entertainment: return Color(red: 0.82, green: 0.60, blue: 0.02)
+        case .tickets:       return Color(red: 0.12, green: 0.62, blue: 0.58)
+        case .tips:          return Color(red: 0.20, green: 0.68, blue: 0.38)
+        case .misc:          return Color.gray
         }
     }
 }

@@ -1,13 +1,13 @@
 import SwiftUI
 
 struct Theme {
-    static let primary  = Color(red: 0.38, green: 0.64, blue: 1.00)
-    static let accent   = Color(red: 0.72, green: 0.48, blue: 1.00)
+    static let primary  = Color(red: 0.20, green: 0.45, blue: 0.90)
+    static let accent   = Color(red: 0.55, green: 0.30, blue: 0.88)
 
-    static let textPrimary   = Color.white
-    static let textSecondary = Color.white.opacity(0.60)
+    static let textPrimary   = Color.black
+    static let textSecondary = Color.black.opacity(0.55)
 
-    // Legacy – kept for code that still references them
+    // Legacy
     static let cardBackground = Color.white
     static let background     = Color(red: 0.96, green: 0.97, blue: 0.99)
     static let shadowColor    = Color.black.opacity(0.08)
@@ -17,9 +17,9 @@ struct Theme {
 
     static let backgroundGradient = LinearGradient(
         colors: [
-            Color(red: 0.07, green: 0.09, blue: 0.24),
-            Color(red: 0.15, green: 0.08, blue: 0.32),
-            Color(red: 0.05, green: 0.14, blue: 0.30)
+            Color(red: 0.88, green: 0.93, blue: 1.00),
+            Color(red: 0.93, green: 0.89, blue: 0.98),
+            Color(red: 0.89, green: 0.97, blue: 0.93)
         ],
         startPoint: .topLeading,
         endPoint: .bottomTrailing

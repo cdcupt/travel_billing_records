@@ -17,7 +17,6 @@
 		SRC007 /* Classification.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0011 /* Classification.swift */; };
 		SRC008 /* Statistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0012 /* Statistics.swift */; };
 		SRC009 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0007 /* Theme.swift */; };
-		SRC020 /* CategoryStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0020 /* CategoryStyle.swift */; };
 		SRC010 /* AddBillView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0008 /* AddBillView.swift */; };
 		SRC011 /* VoiceImportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0009 /* VoiceImportView.swift */; };
 		SRC012 /* ImageImportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0013 /* ImageImportView.swift */; };
@@ -38,7 +37,6 @@
 		BB0005 /* AnalyticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsView.swift; sourceTree = "<group>"; };
 		BB0006 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BB0007 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
-		BB0020 /* CategoryStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryStyle.swift; sourceTree = "<group>"; };
 		BB0008 /* AddBillView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBillView.swift; sourceTree = "<group>"; };
 		BB0009 /* VoiceImportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceImportView.swift; sourceTree = "<group>"; };
 		BB0010 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
@@ -95,7 +93,6 @@
 				BB0021 /* BillDetailView.swift */,
 				BB0005 /* AnalyticsView.swift */,
 				BB0007 /* Theme.swift */,
-					BB0020 /* CategoryStyle.swift */,
 				BB0008 /* AddBillView.swift */,
 				BB0009 /* VoiceImportView.swift */,
 				BB0013 /* ImageImportView.swift */,
@@ -179,7 +176,6 @@
 			files = (
 				SRC001 /* App.swift in Sources */,
 				SRC009 /* Theme.swift in Sources */,
-					SRC020 /* CategoryStyle.swift in Sources */,
 				SRC002 /* SampleData.swift in Sources */,
 				SRC003 /* TripsListView.swift in Sources */,
 				SRC004 /* TripDetailView.swift in Sources */,

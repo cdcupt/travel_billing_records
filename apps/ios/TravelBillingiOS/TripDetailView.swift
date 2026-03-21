@@ -95,13 +95,6 @@ struct TripDetailView: View {
                                             }
                                         } label: { Label("删除", systemImage: "trash") }
                                     }
-                                    .swipeActions(edge: .trailing, allowsFullSwipe: true) {
-                                        Button(role: .destructive) {
-                                            if let idx = trip.bills.firstIndex(where: { $0.id == bill.id }) {
-                                                trip.bills.remove(at: idx); onUpdate(trip)
-                                            }
-                                        } label: { Label("删除", systemImage: "trash") }
-                                    }
                             }
                         }
                         .padding(.horizontal)
@@ -116,14 +109,13 @@ struct TripDetailView: View {
         }
         .navigationTitle(trip.name)
         .navigationBarTitleDisplayMode(.large)
-        .toolbarColorScheme(.dark, for: .navigationBar)
         .toolbarBackground(.hidden, for: .navigationBar)
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button { showImage = true } label: {
-                    Image(systemName: "plus")
-                        .font(.system(size: 15, weight: .semibold))
-                        .foregroundColor(.white)
+                    Image(systemName: "plus.circle.fill")
+                        .font(.system(size: 24))
+                        .foregroundColor(Theme.primary)
                 }
             }
         }

@@ -60,11 +60,11 @@ struct BillDetailView: View {
                         VStack(spacing: 0) {
                             detailRow(label: "日期", value: bill.date.formatted(date: .long, time: .omitted))
                             if let note = bill.note, !note.isEmpty {
-                                Divider().background(Color.white.opacity(0.1)).padding(.horizontal)
+                                Divider().background(Color.black.opacity(0.1)).padding(.horizontal)
                                 detailRow(label: "备注", value: note)
                             }
                             if !bill.participants.isEmpty {
-                                Divider().background(Color.white.opacity(0.1)).padding(.horizontal)
+                                Divider().background(Color.black.opacity(0.1)).padding(.horizontal)
                                 detailRow(label: "参与者", value: bill.participants.map { $0.name }.joined(separator: ", "))
                             }
                         }
@@ -95,7 +95,6 @@ struct BillDetailView: View {
             }
             .navigationTitle("账单详情")
             .navigationBarTitleDisplayMode(.inline)
-            .toolbarColorScheme(.dark, for: .navigationBar)
             .toolbarBackground(.hidden, for: .navigationBar)
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {

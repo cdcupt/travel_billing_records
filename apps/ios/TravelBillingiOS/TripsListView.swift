@@ -19,76 +19,75 @@ struct TripsListView: View {
                 if trips.isEmpty {
                     emptyState
                 } else {
-                    ScrollView {
-                        VStack(spacing: 16) {
+                    List {
+                        Section {
                             statsHeader
-                                .padding(.horizontal)
-                                .padding(.top, 4)
+                        }
+                        .listRowSeparator(.hidden)
+                        .listRowBackground(Color.clear)
+                        .listRowInsets(EdgeInsets(top: 8, leading: 16, bottom: 4, trailing: 16))
 
-                            LazyVStack(spacing: 12) {
-                                ForEach($trips) { $trip in
-                                    ZStack {
-                                        NavigationLink {
-                                            TripDetailView(trip: trip) { updated in
-                                                if let idx = trips.firstIndex(where: { $0.id == updated.id }) {
-                                                    trips[idx] = updated
-                                                    Persistence.shared.saveTrips(trips)
-                                                }
-                                            }
-                                        } label: { EmptyView() }
-                                        .opacity(0)
-
-                                        TripCardView(trip: trip)
-                                    }
-                                    .swipeActions(edge: .leading, allowsFullSwipe: false) {
-                                        Button {
-                                            if let url = ExportService().generateCSV(for: trip) {
-                                                itemsToShare = [url]; showShareSheet = true
-                                            }
-                                        } label: { Label("导出 CSV", systemImage: "doc.text") }
-                                        .tint(.green)
-
-                                        Button {
-                                            if let url = ExportService().generatePDF(for: trip) {
-                                                itemsToShare = [url]; showShareSheet = true
-                                            }
-                                        } label: { Label("导出 PDF", systemImage: "doc.richtext") }
-                                        .tint(.orange)
-                                    }
-                                    .swipeActions(edge: .trailing, allowsFullSwipe: false) {
-                                        Button("删除", role: .destructive) {
-                                            if let idx = trips.firstIndex(where: { $0.id == trip.id }) {
-                                                trips.remove(at: idx)
-                                                Persistence.shared.saveTrips(trips)
-                                            }
+                        ForEach($trips) { $trip in
+                            ZStack {
+                                NavigationLink {
+                                    TripDetailView(trip: trip) { updated in
+                                        if let idx = trips.firstIndex(where: { $0.id == updated.id }) {
+                                            trips[idx] = updated
+                                            Persistence.shared.saveTrips(trips)
                                         }
-                                        Button("编辑") { editTrip = trip }
-                                            .tint(.blue)
+                                    }
+                                } label: { EmptyView() }
+                                .opacity(0)
+
+                                TripCardView(trip: trip)
+                            }
+                            .listRowSeparator(.hidden)
+                            .listRowBackground(Color.clear)
+                            .listRowInsets(EdgeInsets(top: 6, leading: 16, bottom: 6, trailing: 16))
+                            .swipeActions(edge: .leading, allowsFullSwipe: false) {
+                                Button {
+                                    if let url = ExportService().generateCSV(for: trip) {
+                                        itemsToShare = [url]; showShareSheet = true
+                                    }
+                                } label: { Label("导出 CSV", systemImage: "doc.text") }
+                                .tint(.green)
+
+                                Button {
+                                    if let url = ExportService().generatePDF(for: trip) {
+                                        itemsToShare = [url]; showShareSheet = true
+                                    }
+                                } label: { Label("导出 PDF", systemImage: "doc.richtext") }
+                                .tint(.orange)
+                            }
+                            .swipeActions(edge: .trailing, allowsFullSwipe: false) {
+                                Button("删除", role: .destructive) {
+                                    if let idx = trips.firstIndex(where: { $0.id == trip.id }) {
+                                        trips.remove(at: idx)
+                                        Persistence.shared.saveTrips(trips)
                                     }
                                 }
+                                Button("编辑") { editTrip = trip }
+                                    .tint(.blue)
                             }
-                            .padding(.horizontal)
-                            .padding(.bottom, 24)
                         }
                     }
+                    .listStyle(.plain)
+                    .scrollContentBackground(.hidden)
                 }
             }
             .navigationTitle("旅行账单")
-            .navigationBarTitleDisplayMode(.large)
-            .toolbarColorScheme(.dark, for: .navigationBar)
             .toolbarBackground(.hidden, for: .navigationBar)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button { showAddTrip = true } label: {
-                        Image(systemName: "plus")
-                            .font(.system(size: 15, weight: .semibold))
-                            .foregroundColor(.white)
+                        Image(systemName: "plus.circle.fill")
+                            .font(.system(size: 24))
+                            .foregroundColor(Theme.primary)
                     }
                 }
                 ToolbarItem(placement: .navigationBarLeading) {
                     NavigationLink { SettingsView() } label: {
-                        Image(systemName: "gearshape")
-                            .font(.system(size: 15, weight: .medium))
+                        Image(systemName: "gearshape.fill")
                             .foregroundColor(Theme.textSecondary)
                     }
                 }
@@ -122,7 +121,7 @@ struct TripsListView: View {
                     .font(.caption)
                     .foregroundColor(Theme.textSecondary)
                 Text("\(trips.count) 次")
-                    .font(.system(size: 24, weight: .bold, design: .rounded))
+                    .font(.system(size: 22, weight: .bold, design: .rounded))
                     .foregroundColor(Theme.textPrimary)
             }
             Spacer()
@@ -131,11 +130,11 @@ struct TripsListView: View {
                     .font(.caption)
                     .foregroundColor(Theme.textSecondary)
                 Text("¥\(totalSpent, specifier: "%.0f")")
-                    .font(.system(size: 24, weight: .bold, design: .rounded))
+                    .font(.system(size: 22, weight: .bold, design: .rounded))
                     .foregroundColor(Theme.primary)
             }
         }
-        .padding(18)
+        .padding(16)
         .glassEffect(.regular, in: .rect(cornerRadius: Theme.cornerRadius))
     }
 
@@ -143,13 +142,13 @@ struct TripsListView: View {
         VStack(spacing: 28) {
             ZStack {
                 Circle()
-                    .fill(Theme.primary.opacity(0.18))
-                    .frame(width: 130, height: 130)
+                    .fill(Theme.primary.opacity(0.15))
+                    .frame(width: 120, height: 120)
                 Image(systemName: "airplane.departure")
-                    .font(.system(size: 52))
+                    .font(.system(size: 48))
                     .foregroundColor(Theme.primary)
             }
-            VStack(spacing: 10) {
+            VStack(spacing: 8) {
                 Text("开始你的旅程")
                     .font(Theme.titleFont())
                     .foregroundColor(Theme.textPrimary)
@@ -159,11 +158,10 @@ struct TripsListView: View {
             }
             Button { showAddTrip = true } label: {
                 HStack(spacing: 8) {
-                    Image(systemName: "plus").font(.system(size: 15, weight: .bold))
+                    Image(systemName: "plus").font(.system(size: 14, weight: .bold))
                     Text("创建第一次旅行").font(Theme.headlineFont())
                 }
-                .foregroundColor(.white)
-                .padding(.horizontal, 32)
+                .padding(.horizontal, 28)
                 .padding(.vertical, 14)
             }
             .buttonStyle(.glassProminent)
@@ -179,14 +177,14 @@ struct TripCardView: View {
     }
 
     var body: some View {
-        HStack(spacing: 16) {
+        HStack(spacing: 14) {
             Image(systemName: "airplane")
-                .font(.system(size: 20, weight: .semibold))
+                .font(.system(size: 18, weight: .semibold))
                 .foregroundColor(Theme.primary)
-                .frame(width: 48, height: 48)
+                .frame(width: 44, height: 44)
                 .glassEffect(.regular.tint(Theme.primary), in: .circle)
 
-            VStack(alignment: .leading, spacing: 5) {
+            VStack(alignment: .leading, spacing: 4) {
                 Text(trip.name)
                     .font(.system(size: 17, weight: .bold, design: .rounded))
                     .foregroundColor(Theme.textPrimary)
@@ -194,27 +192,25 @@ struct TripCardView: View {
 
                 HStack(spacing: 8) {
                     Label(trip.startDate.formatted(.dateTime.month().day()), systemImage: "calendar")
-                        .font(.caption)
-                        .foregroundColor(Theme.textSecondary)
                     if dayCount > 0 {
                         Text("· \(dayCount + 1) 天")
-                            .font(.caption)
-                            .foregroundColor(Theme.textSecondary)
                     }
                 }
+                .font(.caption)
+                .foregroundColor(Theme.textSecondary)
 
                 Text("\(trip.bills.count) 笔账单")
                     .font(.caption)
                     .foregroundColor(Theme.textSecondary)
             }
 
-            Spacer(minLength: 8)
+            Spacer(minLength: 4)
 
-            VStack(alignment: .trailing, spacing: 5) {
+            VStack(alignment: .trailing, spacing: 4) {
                 let total = NSDecimalNumber(decimal: trip.totalAmount).doubleValue
                 Text("¥\(total, specifier: total >= 10000 ? "%.0f" : "%.2f")")
                     .font(.system(size: 18, weight: .bold, design: .rounded))
-                    .foregroundColor(Theme.textPrimary)
+                    .foregroundColor(Theme.primary)
 
                 Text(trip.currency)
                     .font(.caption2)

@@ -44,7 +44,7 @@ struct AnalyticsView: View {
                 }
                 .chartYAxis {
                     AxisMarks(position: .leading) { _ in
-                        AxisGridLine().foregroundStyle(Color.white.opacity(0.08))
+                        AxisGridLine().foregroundStyle(Color.gray.opacity(0.15))
                         AxisValueLabel()
                             .font(.caption)
                             .foregroundStyle(Theme.textSecondary)

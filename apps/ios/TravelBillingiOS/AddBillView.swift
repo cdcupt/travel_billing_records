@@ -123,7 +123,6 @@ struct AddBillView: View {
                                 Spacer()
                                 DatePicker("", selection: $date, displayedComponents: .date)
                                     .labelsHidden()
-                                    .colorScheme(.dark)
                             }
                             .padding(16)
                             .glassEffect(.regular, in: .rect(cornerRadius: 14))
@@ -156,7 +155,6 @@ struct AddBillView: View {
                 } label: {
                     Text("保存账单")
                         .font(Theme.headlineFont())
-                        .foregroundColor(.white)
                         .frame(maxWidth: .infinity)
                         .padding(.vertical, 16)
                 }

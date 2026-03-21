@@ -218,7 +218,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = NK3U2C365Z;
 				INFOPLIST_FILE = "$(SRCROOT)/TravelBillingiOS/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.chaidaichen.travelbilling.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -236,7 +236,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = NK3U2C365Z;
 				INFOPLIST_FILE = "$(SRCROOT)/TravelBillingiOS/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.chaidaichen.travelbilling.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";

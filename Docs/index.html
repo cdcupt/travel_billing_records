@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>旅游记账薄 - 支持与帮助</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f7fa;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            padding: 60px 20px 50px;
+        }
+
+        .header .app-icon {
+            font-size: 64px;
+            margin-bottom: 16px;
+        }
+
+        .header h1 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            font-size: 18px;
+            opacity: 0.9;
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 800px;
+            margin: -30px auto 40px;
+            padding: 0 20px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 32px;
+            margin-bottom: 24px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .card h2 {
+            font-size: 22px;
+            color: #667eea;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        /* About Section */
+        .about-text {
+            font-size: 16px;
+            color: #555;
+            line-height: 1.8;
+        }
+
+        /* FAQ Section */
+        .faq-item {
+            margin-bottom: 20px;
+        }
+
+        .faq-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .faq-question {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .faq-question::before {
+            content: "Q";
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 26px;
+            height: 26px;
+            background: #667eea;
+            color: white;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 700;
+            margin-right: 10px;
+            margin-top: 1px;
+        }
+
+        .faq-answer {
+            font-size: 15px;
+            color: #666;
+            padding-left: 36px;
+            line-height: 1.7;
+        }
+
+        /* Contact Section */
+        .contact-method {
+            display: flex;
+            align-items: center;
+            padding: 16px;
+            background: #f8f9fe;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            text-decoration: none;
+            color: #333;
+            transition: all 0.2s ease;
+        }
+
+        .contact-method:hover {
+            background: #eef0fb;
+            transform: translateX(4px);
+        }
+
+        .contact-method:last-child {
+            margin-bottom: 0;
+        }
+
+        .contact-icon {
+            font-size: 28px;
+            margin-right: 16px;
+            min-width: 40px;
+            text-align: center;
+        }
+
+        .contact-info h3 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .contact-info p {
+            font-size: 14px;
+            color: #888;
+        }
+
+        /* Privacy Section */
+        .privacy-text {
+            font-size: 15px;
+            color: #555;
+            line-height: 1.8;
+        }
+
+        .privacy-text ul {
+            padding-left: 20px;
+            margin-top: 10px;
+        }
+
+        .privacy-text li {
+            margin-bottom: 8px;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 30px 20px;
+            color: #aaa;
+            font-size: 14px;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .header {
+                padding: 40px 16px 36px;
+            }
+            .header h1 {
+                font-size: 26px;
+            }
+            .card {
+                padding: 24px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <div class="header">
+        <div class="app-icon">✈️</div>
+        <h1>旅游记账薄</h1>
+        <p>轻松记录每一次旅途中的花销</p>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+
+        <!-- About -->
+        <div class="card">
+            <h2>📱 关于应用</h2>
+            <p class="about-text">
+                旅游记账薄是一款专为旅行者设计的记账工具。无论是国内短途出行还是海外长途旅行，
+                都能帮你轻松记录每一笔花销，支持多币种记账、分类统计和行程管理，
+                让你的旅途花费一目了然。
+            </p>
+        </div>
+
+        <!-- FAQ -->
+        <div class="card">
+            <h2>❓ 常见问题</h2>
+
+            <div class="faq-item">
+                <div class="faq-question">如何创建一个新的旅行记账？</div>
+                <div class="faq-answer">打开应用后，点击首页的「+」按钮，输入旅行名称、日期和预算，即可开始记录该次旅行的所有花销。</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">支持哪些货币？</div>
+                <div class="faq-answer">应用支持全球多种主流货币，包括人民币（CNY）、美元（USD）、欧元（EUR）、日元（JPY）等，并支持自动汇率换算。</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">我的数据安全吗？</div>
+                <div class="faq-answer">您的记账数据存储在本地设备上，我们不会收集或上传您的个人财务信息，请放心使用。</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">如何导出我的记账数据？</div>
+                <div class="faq-answer">进入对应旅行记录页面，点击右上角的分享按钮，可以将记账数据导出为文件进行备份或分享。</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">遇到 Bug 或应用闪退怎么办？</div>
+                <div class="faq-answer">请尝试关闭并重新打开应用。如果问题持续存在，请通过下方联系方式告知我们，附上您的设备型号和系统版本，我们会尽快修复。</div>
+            </div>
+        </div>
+
+        <!-- Contact -->
+        <div class="card">
+            <h2>📬 联系我们</h2>
+
+            <a class="contact-method" href="mailto:cdcupt@gmail.com">
+                <div class="contact-icon">📧</div>
+                <div class="contact-info">
+                    <h3>邮件支持</h3>
+                    <p>cdcupt@gmail.com — 我们会在 48 小时内回复</p>
+                </div>
+            </a>
+
+            <a class="contact-method" href="https://github.com/cdcupt/travel_billing_records/issues" target="_blank">
+                <div class="contact-icon">🐛</div>
+                <div class="contact-info">
+                    <h3>问题反馈</h3>
+                    <p>通过 GitHub Issues 提交 Bug 报告或功能建议</p>
+                </div>
+            </a>
+        </div>
+
+        <!-- Privacy -->
+        <div class="card">
+            <h2>🔒 隐私政策</h2>
+            <div class="privacy-text">
+                <p>我们非常重视您的隐私。旅游记账薄遵循以下隐私原则：</p>
+                <ul>
+                    <li>所有记账数据均存储在您的设备本地，我们不会上传至任何服务器。</li>
+                    <li>我们不会收集、存储或分享您的个人身份信息。</li>
+                    <li>应用不包含任何第三方广告追踪 SDK。</li>
+                    <li>您可以随时删除应用及其所有本地数据。</li>
+                </ul>
+                <p style="margin-top: 12px;">如对隐私政策有任何疑问，请通过上方邮件联系我们。</p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>© 2026 旅游记账薄. All rights reserved.</p>
+    </div>
+
+</body>
+</html>
